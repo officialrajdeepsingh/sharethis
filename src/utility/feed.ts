@@ -28,7 +28,7 @@ export async function GetFeed() {
     }
 
     // get description from summary,content and contentSnippet
-    function description(summary: string, content: string, contentSnippet: string): string {
+    function description(summary: string | undefined, content: string, contentSnippet: string | undefined): string {
 
 
         let mediumFeedSnippet = Nodeparser.parse(content).querySelector(".medium-feed-snippet")?.innerText
