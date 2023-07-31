@@ -9,4 +9,3 @@ export interface Items {
   author?: string;
   date: string;
 }
-
