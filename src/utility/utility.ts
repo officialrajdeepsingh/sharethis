@@ -1,8 +1,15 @@
 import axios from "axios";
 import type { Items } from "@/types";
 
+interface ArrayType{
+ statusText: string; 
+ status: number; 
+ successful: boolean; 
+ error?: string 
+}
 
- function shareOnLinkedin(todayArticle: Items[]) {
+
+async function shareOnLinkedin(todayArticle: Items[]) {
 
 
   let headersList = {
@@ -10,11 +17,8 @@ import type { Items } from "@/types";
     "Content-Type": "application/json"
   }
 
-  return  todayArticle.map(
-    
-  function article(post) {
+ let resultArray:Promise<ArrayType>[] =  todayArticle.map( (post) => {
 
-      
       let bodyContent = JSON.stringify({
         "content": {
           "contentEntities": [
@@ -56,45 +60,46 @@ ${post.hashTags}
       });
 
       let reqOptions = {
-
         url: "https://api.linkedin.com/v2/shares",
         method: "POST",
         headers: headersList,
         data: bodyContent,
-
-
       };
 
-      
-     return axios.request(reqOptions)
 
-        .then((response)=> {
-          
-          return {
+     let result =  axios.request(reqOptions)
+
+        .then(function (response):ArrayType {
+
+         return ({
             statusText: response.statusText,
             status: response.status,
-            successful:true
-          }
+            successful: true
+          })
 
         })
 
-        .catch((error)=> {
-      
-          return {
-              error : error.response.data.message,
-              statusText: error.response.statusText,
-              status: error.response.status,
-              successful:false
-            }
-          }
+        .catch(function (error):ArrayType {
 
-        );
+         return ({
+            error: error.response.data.message,
+            statusText: error.response.statusText,
+            status: error.response.status,
+            successful: false
+          })
 
-    }
-  )
+        });
+
+      return result
+
+})
+
+
+
+    return resultArray
 
 }
 
 
 
-export { shareOnLinkedin }
+export { shareOnLinkedin } 
