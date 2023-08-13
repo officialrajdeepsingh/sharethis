@@ -1,105 +1,90 @@
-import axios from "axios";
 import type { Items } from "@/types";
 
-interface ArrayType{
- statusText: string; 
- status: number; 
- successful: boolean; 
- error?: string 
+interface ArrayType {
+  statusText?: string;
+  status: number;
+  successful: boolean;
+  error?: string;
+}
+interface ReturnType {
+  id: number; title: string; userId: number
 }
 
+let resltData: ArrayType[] = []
 
 async function shareOnLinkedin(todayArticle: Items[]) {
 
 
-  let headersList = {
-    "Authorization": process.env.LINKEDIN_ACCESS_TOKEN,
-    "Content-Type": "application/json"
-  }
+  for (const post of todayArticle) {
 
- let resultArray:Promise<ArrayType>[] =  todayArticle.map( (post) => {
-
-      let bodyContent = JSON.stringify({
+    await fetch('https://dummyjson.co/posts/add', {
+      method: 'POST', 
+      headers: { 
+        'Content-Type': 'application/json',
+        "Authorization": process.env.LINKEDIN_ACCESS_TOKEN as string
+      },
+      body: JSON.stringify({
         "content": {
           "contentEntities": [
             {
               "entityLocation": post?.link,
               "thumbnails": [
                 {
-                  "resolvedUrl": post?.image
-                }
-              ]
-            }
+                  "resolvedUrl": post?.image,
+                },
+              ],
+            },
           ],
           "title": post.title,
-          "description": post.description
+          "description": post.description,
         },
         "distribution": {
-          "linkedInDistributionTarget": {}
+          "linkedInDistributionTarget": {},
         },
         "owner": "urn:li:organization:76615898",
         "subject": post.description,
         "text": {
-
-          "text": post.author ? `${post.title} 
-
-${post.description}
-
-Publish By ${post.author}
-
-${post.hashTags}
-`: `${post.title} 
-
-${post.description}
-                      
-${post.hashTags}
-`
-        }
-
-
-      });
-
-      let reqOptions = {
-        url: "https://api.linkedin.com/v2/shares",
-        method: "POST",
-        headers: headersList,
-        data: bodyContent,
-      };
-
-
-     let result =  axios.request(reqOptions)
-
-        .then(function (response):ArrayType {
-
-         return ({
-            statusText: response.statusText,
-            status: response.status,
-            successful: true
-          })
-
+          "text": post.author
+            ? `${post.title} 
+  
+  ${post.description}
+  
+  Publish By ${post.author}
+  
+  ${post.hashTags}
+  `
+            : `${post.title} 
+  
+  ${post.description}
+                        
+  ${post.hashTags}
+  `,
+        },
+      })
+    })
+      .then(res => res.json())
+      .then((data) => {
+        resltData.push({
+          statusText: data.title,
+          status: 201,
+          successful: true,
         })
-
-        .catch(function (error):ArrayType {
-
-         return ({
-            error: error.response.data.message,
-            statusText: error.response.statusText,
-            status: error.response.status,
-            successful: false
+      }).catch(
+        (error) => {
+          resltData.push({
+            error:error,
+            statusText: "some thing wrong",
+            status: 404,
+            successful: false,
           })
-
-        });
-
-      return result
-
-})
+        }
+      )
 
 
+  }
 
-    return resultArray
+  return resltData
 
 }
 
-
-
-export { shareOnLinkedin } 
+export { shareOnLinkedin };
