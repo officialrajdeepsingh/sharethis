@@ -60,24 +60,22 @@ async function shareOnLinkedin(todayArticle: Items[]) {
       })
     })
       .then(res => res.json())
-      .then((data) => {
+      .then((response) => {
         resltData.push({
-          statusText: data.title,
-          status: 201,
+          statusText: response.statusText,
+          status: response.status,
           successful: true,
         })
       }).catch(
         (error) => {
           resltData.push({
-            error:error,
-            statusText: "some thing wrong",
-            status: 404,
+            error: error.response.data.message,
+            statusText: error.response.statusText,
+            status: error.response.status,
             successful: false,
           })
         }
       )
-
-
   }
 
   return resltData
