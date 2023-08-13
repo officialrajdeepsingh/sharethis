@@ -1,9 +1,11 @@
 import type { Items } from "@/types";
 
 interface ArrayType {
+  id?:string;
+  message?: string;
   statusText?: string;
   status: number;
-  successful: boolean;
+  successful?: boolean;
   error?: string;
 }
 
@@ -61,10 +63,12 @@ async function shareOnLinkedin(todayArticle: Items[]) {
     })
       .then(res => res.json())
       .then((response) => {
+        console.log("Response is here",response)
         resltData.push({
-          statusText: response.statusText,
-          status: response.status,
-          successful: true,
+          id:response.id,
+          statusText:response.subject,
+          message: response.message,
+          status: 201 && response.status
         })
       }).catch(
         (error) => {
