@@ -14,7 +14,7 @@ async function shareOnLinkedin(todayArticle: Items[]) {
 
   for (const post of todayArticle) {
 
-    await fetch('https://dummyjson.co/posts/add', {
+    await fetch('https://api.linkedin.com/v2/shares', {
       method: 'POST', 
       headers: { 
         'Content-Type': 'application/json',
