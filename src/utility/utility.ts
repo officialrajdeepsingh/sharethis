@@ -6,9 +6,6 @@ interface ArrayType {
   successful: boolean;
   error?: string;
 }
-interface ReturnType {
-  id: number; title: string; userId: number
-}
 
 let resltData: ArrayType[] = []
 
