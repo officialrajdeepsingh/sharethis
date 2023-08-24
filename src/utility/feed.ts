@@ -56,14 +56,14 @@ export async function GetFeed() {
 
                         feed.items.forEach((item) => {
 
-                            const { link, guid, title, pubDate, creator, summary, content, categories, contentSnippet } = item
+                            const { link, guid, title, creator, summary, content, categories, contentSnippet, isoDate } = item
 
                             var urlparts = link?.split("?") ? link?.split("?")[0] : link;
 
                             let convertIntoHashTags = categories?.map(item => `#${item}`).join().replaceAll(",", " ")
 
 
-                            if (title !== undefined && content !== undefined && link !== undefined && pubDate !== undefined && guid !== undefined) {
+                            if (title !== undefined && content !== undefined && link !== undefined && isoDate !== undefined && guid !== undefined) {
 
                                 let getdescription = description(summary, content, contentSnippet)
 
@@ -75,7 +75,7 @@ export async function GetFeed() {
                                         title: title,
                                         link: urlparts,
                                         image: htmlImage(content),
-                                        date: pubDate,
+                                        date: isoDate,
                                         description: getdescription,
                                         author: creator,
                                         categories: categories,
