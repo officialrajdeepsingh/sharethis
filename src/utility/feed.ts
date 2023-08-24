@@ -70,7 +70,6 @@ export async function GetFeed() {
 
                                 // push post into setData variable
                                 setData.push(
-
                                     {
                                         title: title,
                                         link: urlparts,
