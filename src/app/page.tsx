@@ -1,11 +1,12 @@
+import Login from '@/components/Login'
 import Link from 'next/link'
 
 export default function Home() {
   return (
-     
+     <>
      <div className={"card"}>
 
-        <Link target={"_blank"} className={"button-card"} href="/api/feed.xml">
+        <Link target={"_blank"} className={"button-card"} href="/api/feed">
           XML API click here
         </Link>
 
@@ -14,5 +15,6 @@ export default function Home() {
         </Link>
 
       </div>
+      </>
   )
 }
