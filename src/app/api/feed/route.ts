@@ -1,32 +1,40 @@
 import { GetFeed } from "@/utility/feed";
+import jsonxml from 'jsontoxml';
 
 
 export async function GET() {
 
-const ArticleLists = await GetFeed()
+  const ArticleLists = await GetFeed()
 
-let baseUrl = '/'
+  let baseUrl = '/'
 
-const item = ArticleLists.map((data) => `<item>
-  <title><![CDATA[${data.title}]]> </title>
-    <description> <![CDATA[ ${data.description} ]]> </description>
-    <link> <![CDATA[ ${data.link} ]]> </link>
-    <image> <![CDATA[ ${data.image} ]]></image>
-    <guid> <![CDATA[ ${data.guid} ]]></guid>
-    <categories> <![CDATA[${data.categories} ]]></categories>
-    <hashtags> <![CDATA[${data.hashTags} ]]></hashtags>
-    <author> <![CDATA[${data.author} ]]></author>
-    <date>${data.date}</date>
-  </item>`
-).join('')
 
-return new Response( `<?xml version="1.0" encoding="UTF-8"?>
+  const item = ArticleLists.map((data) => {
+    return jsonxml({
+      article: {
+        title: data.title,
+        link: data.link,
+        image: data.image,
+        date: data.date,
+        description: data.description,
+        author: data.author,
+        categories: data.categories,
+        hashTags: data.hashTags,
+        guid: data.guid
+      }
+    })
+  }).join('')
+
+  console.log(item)
+
+  // jsonxml
+  return new Response(`<?xml version="1.0" encoding="UTF-8"?>
   <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
       <channel>
               ${item}        
       </channel>
 </rss> `, {
-status: 200,
-headers: { 'Content-Type': "text/xml" },
-})
+    status: 200,
+    headers: { 'Content-Type': "text/xml" },
+  })
 }
