@@ -6,9 +6,6 @@ export async function GET() {
 
   const ArticleLists = await GetFeed()
 
-  let baseUrl = '/'
-
-
   const item = ArticleLists.map((data) => {
     return jsonxml({
       article: {
@@ -24,8 +21,6 @@ export async function GET() {
       }
     })
   }).join('')
-
-  console.log(item)
 
   // jsonxml
   return new Response(`<?xml version="1.0" encoding="UTF-8"?>
