@@ -5,6 +5,7 @@ import medium from '@/feed/medium.json';
 import type { Items } from "@/types";
 
 let parser = new Parser({
+    defaultRSS: 2.0,
     customFields: {
         item: [["content:encoded", "content"], ["dc:creator", "creator"]]
     }
@@ -71,11 +72,11 @@ export async function GetFeed() {
                                 // push post into setData variable
                                 setData.push(
                                     {
-                                        title: title,
+                                        title: title.replace(/[^a-zA-Z ]/g, ""),
                                         link: urlparts,
                                         image: htmlImage(content),
                                         date: isoDate,
-                                        description: getdescription,
+                                        description: getdescription.replace(/[^a-zA-Z ]/g, ""),
                                         author: creator,
                                         categories: categories,
                                         hashTags: convertIntoHashTags,
