@@ -4,8 +4,6 @@ import Nodeparser from 'node-html-parser';
 import medium from '@/feed/medium.json';
 import type { Items } from "@/types";
 
-
-
 let parser = new Parser({
     customFields: {
         item: [["content:encoded", "content"], ["dc:creator", "creator"]]
