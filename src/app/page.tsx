@@ -1,9 +1,6 @@
 import Link from "next/link";
-// import Parser from "rss-parser";
 
-// let parser = new Parser();
 export default async function Home() {
-  
   return (
     <>
       <div className={"card"}>
