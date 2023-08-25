@@ -1,10 +1,12 @@
-import Link from 'next/link'
+import Link from "next/link";
+// import Parser from "rss-parser";
 
-export default function Home() {
+// let parser = new Parser();
+export default async function Home() {
+  
   return (
-     <>
-     <div className={"card"}>
-
+    <>
+      <div className={"card"}>
         <Link target={"_blank"} className={"button-card"} href="/api/feed">
           XML API click here
         </Link>
@@ -12,8 +14,8 @@ export default function Home() {
         <Link target={"_blank"} className={"button-card"} href="/api/linkedin">
           Linkedin API click here
         </Link>
-
       </div>
-      </>
-  )
+    </>
+  );
+
 }
