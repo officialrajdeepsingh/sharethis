@@ -57,17 +57,16 @@ export async function GetFeed() {
 
                         feed.items.forEach((item) => {
 
-                            const { link, guid, title, creator, summary, content, categories, contentSnippet, isoDate } = item
+                            const { link, guid, title, creator, summary, content, categories, pubDate , contentSnippet, isoDate } = item
 
                             var urlparts = link?.split("?") ? link?.split("?")[0] : link;
 
                             let convertIntoHashTags = categories?.map(item => `#${item}`).join().replaceAll(",", " ")
 
 
-                            if (title !== undefined && content !== undefined && link !== undefined && isoDate !== undefined && guid !== undefined) {
+                            if (title !== undefined && content !== undefined && link !== undefined && pubDate !== undefined && guid !== undefined) {
 
                                 let getdescription = description(summary, content, contentSnippet)
-
 
                                 // push post into setData variable
                                 setData.push(
@@ -75,7 +74,7 @@ export async function GetFeed() {
                                         title: title.replace(/[^a-zA-Z ]/g, ""),
                                         link: urlparts,
                                         image: htmlImage(content),
-                                        date: isoDate,
+                                        date: pubDate,
                                         description: getdescription.replace(/[^a-zA-Z ]/g, ""),
                                         author: creator,
                                         categories: categories,
