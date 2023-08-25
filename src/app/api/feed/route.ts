@@ -6,7 +6,7 @@ export async function GET() {
 
   const item = ArticleLists.map((data) => {
     return jsonxml({
-      article: {
+      item: {
         title: data.title,
         link: data.link,
         image: data.image,
