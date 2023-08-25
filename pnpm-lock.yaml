@@ -32,6 +32,9 @@ dependencies:
   node-html-parser:
     specifier: ^6.1.5
     version: 6.1.5
+  object-to-xml:
+    specifier: ^2.0.0
+    version: 2.0.0
   react:
     specifier: 18.2.0
     version: 18.2.0
@@ -602,6 +605,14 @@ packages:
 
   /damerau-levenshtein@1.0.8:
     resolution: {integrity: sha512-sdQSFB7+llfUcQHUQO3+B8ERRj0Oa4w9POWMI/puGtuf7gFywGmkaLCElnudfTiKZV+NvHqL0ifzdrI8Ro7ESA==}
+    dev: false
+
+  /dank-each@1.0.0:
+    resolution: {integrity: sha512-gMDy24y+3LlnAaHq4WFwRKliMZRkGp41Gy9JVsD1BO5tprb/lEh4afJlkankcTqRoppSaHRwgFQX61QjJ5ClfQ==}
+    dev: false
+
+  /dank-map@0.1.0:
+    resolution: {integrity: sha512-mQoLySkWc5bQM8XKXz0rIuISX/+12rSSfPojYlTVT6KPj3LsvfLURtrv0w+QEt1gRIKwp9mxnwOcL5nsOTkk2Q==}
     dev: false
 
   /date-fns@2.30.0:
@@ -1804,6 +1815,14 @@ packages:
     engines: {node: '>= 0.4'}
     dev: false
 
+  /object-to-xml@2.0.0:
+    resolution: {integrity: sha512-bArXy7WCF1V9R88/zF9adSZSeFQnFmmKhMqNuNLAxqrbkvzcWP8HgnaRCcVJsfvIgvpdHiYd0qzJi7LM7QFfcQ==}
+    dependencies:
+      dank-each: 1.0.0
+      dank-map: 0.1.0
+      sanitizer: 0.1.3
+    dev: false
+
   /object.assign@4.1.4:
     resolution: {integrity: sha512-1mxKf0e58bvyjSCtKYY4sRe9itRk3PJpquJOjeIkz885CczcI4IvJJDLPS72oowuSh+pBxUFROpX+TU++hxhZQ==}
     engines: {node: '>= 0.4'}
@@ -2089,6 +2108,10 @@ packages:
       call-bind: 1.0.2
       get-intrinsic: 1.2.1
       is-regex: 1.1.4
+    dev: false
+
+  /sanitizer@0.1.3:
+    resolution: {integrity: sha512-j05vL56tR90rsYqm9ZD05v6K4HI7t4yMDEvvU0x4f+IADXM9Jx1x9mzatxOs5drJq6dGhugxDW99mcPvXVLl+Q==}
     dev: false
 
   /sax@1.2.4:
