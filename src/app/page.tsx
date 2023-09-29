@@ -1,6 +1,7 @@
 import { Card } from "@/components/Card";
 import { GetFeed } from "@/utility/feed";
 
+export const revalidate = 60
 export default async function Home() {
   const ArticleLists = await GetFeed();
 
